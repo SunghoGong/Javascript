@@ -1264,7 +1264,6 @@ export const CssModules = () => {
 }
 ```
 
-![image.png](attachment:be6b1d3f-a1e4-42f2-8e3e-21a962b1775a:image.png)
 
 → &:hover로 버튼에 마우스 커서를 올렸을 때 색과 포인터가 바뀌도록 설정
 
@@ -1324,7 +1323,6 @@ export const StyledJsx = () => {
 }
 ```
 
-![image.png](attachment:20628d91-bf5f-4795-9d00-438e35c42c0f:image.png)
 
 ### style 태그 사용방법
 
@@ -1376,7 +1374,6 @@ const SButton = styled.button`
 `;
 ```
 
-![image.png](attachment:d2b1ea4e-75f6-48d6-b215-9b68d1f7fb08:image.png)
 
 → 맨 앞에 대문자 S를 부여한 이유는 나중에 코드를 봤을 때 styled components로 작성한 컴포넌트인지, 다른 외부 라이브러리를 사용한 컴포넌트인지를 알기 쉬게 하기 위함
 
