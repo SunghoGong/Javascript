@@ -760,3 +760,695 @@ document
     .getElementById("add-button")
     .addEventListener("click", () => onClickAdd());
 ```
+## Day 3 (리액트 기본)
+
+```jsx
+// 새 프로젝트를 만드는 경우
+npx create-react-app [프로젝트명]
+
+// 로컬 환경에서 명령어 실행
+cd [프로젝트폴더명]
+npm start
+```
+
+- 리액트는 JSX 표기법을 사용함
+
+### ReactDom import | index.js
+
+```jsx
+import ReactDOM from "react-dom";
+```
+
+### 함수 정의 | index.js
+
+```jsx
+import ReactDOM from "react-dom";
+
+// App이라는 이름으로 화살표 함수를 이용해 함수를 준비
+// 우선 null을 반환하는 함수로 정의
+const App = () => {
+	return null;
+}
+```
+
+### [JSX규칙] 리액트 17에서 리액트 18로 바뀜👺👺👺
+
+```jsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+const App = () => {
+    return (
+        <div>
+            <h1>안녕하세요!</h1>
+            <p>잘 지내시죠?</p>
+        </div>
+    );
+};
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
+→ 여러 줄을 표시하고 싶을 때는 (<></>);사이에 집어넣음
+
+→ import { createRoot} from “react-dom/client”; 이건 잘 모르겠음
+
+### Fragment 사용
+
+```jsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Fragment } from "react";
+
+const App = () => {
+    return (
+        <fragment>
+            <h1>안녕하세요!</h1>
+            <p>잘 지내시죠?</p>
+        </fragment>
+    );
+};
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
+→ 리액트에서 제공하는 fragment를 사용해도 된다고 함
+
+→ fragment를 생략하고 빈칸으로 해도 괜찮음
+
+### 컴포넌트 사용 | App.jsx 추가 생성
+
+```jsx
+// 다른 파일에서도 사용 가능하도록 export 해야 함
+export const App = () => {
+    return (
+        <>
+            <h1>안녕하세요!</h1>
+            <p>잘 지내시죠?</p>
+        </>
+    );
+}
+```
+
+→ 컴포넌트 파일의 확장자는 .jsx를 사용할 것을 권장
+
+### 이벤트와 스타일
+
+→ 버튼을 클릭했을 때의 이벤트는 보통 onclick으로 작성
+
+→ 리액트에서는 이벤트 등을 **캐멀케이스(단어가 연결되는 부분을 대문자로 표기)**로 작성함
+
+```jsx
+// alert 기능 구현
+export const App = () => {
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+    };
+
+    return (
+        <>
+            <h1>안녕하세요!</h1>
+            <p>잘 지내시죠?</p>
+            <button onClick={onClickButton}>버튼</button>
+        </>
+    );
+};
+```
+
+### 글자를 빨간색으로 변경
+
+```jsx
+export const App = () => {
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+    };
+
+    return (
+        <>
+		        // style 추가
+            <h1 style={{color: "red" }}>안녕하세요!</h1>
+            <p>잘 지내시죠?</p>
+            <button onClick={onClickButton}>버튼</button>
+        </>
+    );
+};
+```
+
+### p 태그의 글자 색과 크기 변경
+
+```jsx
+export const App = () => {
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+    };
+    
+		// CSS 객체
+    const contentStyle = {
+        color: "blue",
+        fontSize: "20px"
+    };
+
+    return (
+        <>
+            <h1 style={{color: "red" }}>안녕하세요!</h1>
+            <p style={contentStyle}>잘 지내시죠?</p>
+            <button onClick={onClickButton}>버튼</button>
+        </>
+    );
+};
+```
+
+### Props
+
+```jsx
+export const App = () => {
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+    };
+	
+		// CSS 객체
+    const contentStyle = {
+        color: "blue",
+        fontSize: "20px"
+    };
+    // 분홍색용으로 추가
+    const contentPinkStyle = {
+        color: "Pink",
+        fontSize: "20px"
+    };
+
+    return (
+        <>
+            <h1 style={{color: "red" }}>안녕하세요!</h1>
+            <p style={contentStyle}>잘 지내시죠?</p>
+            <p style={contentPinkStyle}>잘 지냅니다!</p>
+            <button onClick={onClickButton}>버튼</button>
+        </>
+    );
+};
+```
+
+### p 태그 부분 복사 | ColoredMessage.jsx
+
+```jsx
+export const ColoredMessage = () => {
+    const contentStyle = {
+        color: "blue",
+        fontSize: "20px"
+    };
+
+    return <p style={contentStyle}>잘 지내시죠?</p>;
+};
+```
+
+### ColoredMessage 임포트 | App.jsx
+
+```jsx
+// 추가
+import { ColoredMessage } from "./components/ColoredMessage";
+
+export const App = () => {
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+    };
+
+    const contentPinkStyle = {
+        color: "Pink",
+        fontSize: "20px"
+    };
+
+    return (
+        <>
+            <h1 style={{color: "red" }}>안녕하세요!</h1>
+            // 추가
+            <ColoredMessage color="blue" message="잘 지내시죠?" />
+            <p style={contentPinkStyle}>잘 지냅니다!</p>
+            <button onClick={onClickButton}>버튼</button>
+        </>
+    );
+};
+```
+
+→ Props를 사용하려면 Props를 전달하는 쪽의 컴포넌트(App.jsx)와 전달받는 쪽의 컴포넌트(ColoredMessage.jsx) 모두를 수정해야 함
+
+→ 색상(color)과 메시지(message)를 전달
+
+### Prop를 객체로 받음 | ColoredMessage.jsx
+
+```jsx
+export const ColoredMessage = (props) => {
+    console.log(props);
+    // {color: "blue", message: "잘 지내시죠?"}
+    const contentStyle = {
+        color: "blue",
+        fontSize: "20px"
+    };
+
+    return <p style={contentStyle}>잘 지내시죠?</p>;
+};
+```
+
+### App.jsx
+
+```jsx
+import { ColoredMessage } from "./components/ColoredMessage";
+
+export const App = () => {
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+    };
+
+    return (
+        <>
+            <h1 style={{color: "red" }}>안녕하세요!</h1>
+            <ColoredMessage color="blue" message="잘 지내시죠?" />
+            <ColoredMessage color="pink" message="잘 지냅니다!" />
+            <button onClick={onClickButton}>버튼</button>
+        </>
+    );
+};
+```
+
+### 텍스트를 children으로 전달 | App.jsx
+
+```jsx
+import { ColoredMessage } from "./components/ColoredMessage";
+
+export const App = () => {
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+    };
+
+    return (
+        <>
+            <h1 style={{color: "red" }}>안녕하세요!</h1>
+            <ColoredMessage color="blue">잘 지내시죠?</ColoredMessage>
+            <ColoredMessage color="pink">잘 지냅니다!</ColoredMessage>
+            <button onClick={onClickButton}>버튼</button>
+        </>
+    );
+};
+```
+
+### children으로 메시지 받기 | ColoredMessage.jsx
+
+```jsx
+export const ColoredMessage = (props) => {
+    console.log(props);
+    // {color: "blue", message: "잘 지내시죠?"}
+    const contentStyle = {
+        color: props.color,
+        fontSize: "20px"
+    };
+
+    return <p style={contentStyle}>{props.children}</p>;
+};
+```
+
+### Props 분할 대입(Props를 destructure한다)
+
+```jsx
+export const ColoredMessage = (props) => {
+		// Props 분할 대입
+    const { color, children } = props;
+    
+    const contentStyle = {
+        color: color, // props. 불필요
+        fontSize: "20px"
+    };
+		// props. 불필요
+    return <p style={contentStyle}>{children}</p>;
+};
+```
+
+### 생략 표기법, 인수 단계에서 전개
+
+```jsx
+// 인수의 ( ) 단계에서 분할 대입
+export const ColoredMessage = ({ color, children }) => {
+    
+    const contentStyle = {
+        color, // 생략 표기법 사용 가능
+        fontSize: "20px"
+    };
+
+    return <p style={contentStyle}>{children}</p>;
+};
+```
+
+### State(useState)
+
+→ 화면의 표시하는 데이터나 길이가 변하는 상태 등을 모두 State로 관리함
+
+### 기본서식
+
+```jsx
+import { useState } from "react";
+```
+
+### useState 사용 예
+
+```jsx
+const [num, setNum] = useState();
+```
+
+### state 초깃값 설정 방법
+
+```jsx
+const [num, setNum] = useState(0);
+```
+
+### 카운트 업 기능 구현
+
+```jsx
+// 수치 state를 정의해서 화면에 표시하고 버튼 클릭 시 카운트업하는 기능
+import { useState } from "react"; // 기본서식
+import { ColoredMessage } from "./components/ColoredMessage";
+
+export const App = () => {
+    // state 정의
+        const [num, setNum] = useState(0); // 추가
+
+    // 버튼 클릭 시 실행되는 함수 정의
+    const onClickButton = () => {
+        alert();
+        setNum(num+1); // 추가
+    };
+
+    return (
+        <>
+            <h1 style={{color: "red" }}>안녕하세요!</h1>
+            <ColoredMessage color="blue">잘 지내시죠?</ColoredMessage>
+            <ColoredMessage color="pink">잘 지냅니다!</ColoredMessage>
+            <button onClick={onClickButton}>버튼</button>
+            <p>{num}</p>
+        </>
+    );
+};
+```
+
+### 재렌더링과 부작용
+
+→ State 업데이트 시 컴포넌트가 재렌더링되어 함수 컴포넌트가 다시 처음부터 실행된다
+
+### useEffect 초깃값 설정 방법
+
+```jsx
+import { useEffect } from "react";
+```
+
+### useEffect 선언
+
+```jsx
+useEffect(실행하는 함수[, 의존하는 값]);
+```
+
+→ useEffect의 역할은 어떤 값이 변했을 때에 한해서만 어떤 처리를 실행하는 기능
+
+### export 종류
+
+### export 측(normal export)
+
+```jsx
+export const SomeComponent = () => {};
+```
+
+### import 측(normal export)
+
+```jsx
+import { SomeComponent } from "./SomeComponent";
+```
+
+### default export
+
+### export 측
+
+```jsx
+const SomeConponent = () => {};
+export default SomeComponent;
+```
+
+### import 측
+
+```jsx
+import SomeComponent from "./SomeComponent";
+```
+
+### export 측
+
+```jsx
+const SomeComponent = () => {};
+export default SomeComponent;
+```
+
+### import 측
+
+```jsx
+import Some from "./SomeComponent";
+
+import { SomeComponent as Some } from "./SomeComponent";
+```
+
+## Day 4 (리액트와 CSS)
+
+### CSS Modules
+
+→ 리액트 개발의 경우 컴포넌트별로 CSS파일을 제공하는 경우가 많음
+
+```jsx
+export const CssModules = () => {
+	return (
+		<div>
+			<p>CSS Modules입니다</p>
+			<button>버튼</button>
+		</div>
+	);
+};
+```
+
+### SCSS 파일 정의 | CssModules.module.css
+
+```css
+.container {
+    border: solid 1px #aaa;
+    border-radius: 20px;
+    padding: 8px;
+    margin: 8px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.title {
+    margin: 0;
+    color: #aaa;
+}
+.button {
+    background-color: #ddd;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    &:hover {
+        background-color: #aaa;
+        color: #fff;
+        cursor: pointer;
+    }
+}
+```
+
+![image.png](attachment:be6b1d3f-a1e4-42f2-8e3e-21a962b1775a:image.png)
+
+→ &:hover로 버튼에 마우스 커서를 올렸을 때 색과 포인터가 바뀌도록 설정
+
+```jsx
+import classes from "./CssModules.module.css";
+
+export const CssModules = () => {
+    return (
+        <div className={classes.container}>
+            <p className={classes.title}>CSS Modules입니다</p>
+            <button className={classes.button}>버튼</button>
+        </div>
+    );
+};
+```
+
+→ 임의의 이름(예제에서는 classes)으로 CSS를 import하고 각 태그의 className속성에 정의한 클래스를 지정함
+
+→ CSS클래스명의 스코프는 컴포넌트 안으로 한정됨, 다른 컴포넌트에서 container라는 같은 이름으로 클래스명을 정의해도 충돌하지 않음
+
+### Styled JSX
+
+→ 적극적으로 채용하지는 않지만 Next.js에 표준으로 내장되어 있는 라이브러리임
+
+```jsx
+export const StyledJsx = () => {
+    return (
+        <>
+            <div className="container">
+                <p className="title">Styled JSX입니다</p>
+                <button className="button">버튼</button>
+            </div>
+
+            <style jsx>{`
+                .container {
+                    border: solid 1px #aaa;
+                    border-radius: 20px;
+                    padding: 8px;
+                    margin: 8px;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items:center;
+                }
+                .title {
+                    margin: 0;
+                    color: #aaa;
+                }
+                .button {
+                    background-color: #ddd;
+                    border: none;
+                    padding: 8px;
+                    border-radius: 8px;
+                }
+            `}</style>
+        </>
+    )
+}
+```
+
+![image.png](attachment:20628d91-bf5f-4795-9d00-438e35c42c0f:image.png)
+
+### style 태그 사용방법
+
+```jsx
+<style jsx>{`
+	/* 여기에 CSS를 기술한다. */
+`}</style jsx>
+```
+
+### styled components 사용
+
+→ className에 클래스를 지정하는 것이 아니라 스타일을 적용한 컴포넌트를 정의함
+
+```jsx
+import styled from "styled-components";
+
+export const StyledComponents = () => {
+    return (
+        <SContainer>
+            <STitle>styled components입니다</STitle>
+            <SButton>버튼</SButton>
+        </SContainer>
+    );
+};
+
+const SContainer = styled.div`
+    border: solid 1px #aaa;
+    border-radius: 20px;
+    padding: 8px;
+    margin: 8px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`;
+const STitle = styled.p`
+    margin: 0;
+    color: #aaa;
+`;
+const SButton = styled.button`
+    background-color: #ddd;
+    border:none;
+    padding: 8px;
+    border-radius: 8px;
+    &:hover {
+        background-color: #aaa;
+        color: #fff;
+        cursor: pointer;
+    }
+`;
+```
+
+![image.png](attachment:d2b1ea4e-75f6-48d6-b215-9b68d1f7fb08:image.png)
+
+→ 맨 앞에 대문자 S를 부여한 이유는 나중에 코드를 봤을 때 styled components로 작성한 컴포넌트인지, 다른 외부 라이브러리를 사용한 컴포넌트인지를 알기 쉬게 하기 위함
+
+### Emotion
+
+→ 다양하게 사용할 수 있는 것이 특징
+
+```jsx
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from "@emotion/react";
+import styled from "@emotion/styled";
+
+export const Emotion = () => {
+    // scss와 동일하게 작성 가능
+    const containerStyle = css`
+        border: solid 1px #aaa;
+        border-radius: 20px;
+        padding: 8px;
+        margin: 8px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;  
+    `;
+
+    // 인라인 스타일 작성 방법
+    const titleStyle = css({
+        margin: 0,
+        color: "#aaa"
+    });
+
+    return (
+        <div css={containerStyle}>
+            <p css={titleStyle}>Emotion입니다</p>
+            <SButton>버튼</SButton>
+        </div>
+    );
+};
+
+// styled-components 작성 방법
+const SButton = styled.button`
+    background-color: #ddd;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    &:hover {
+        background-color: #aaa;
+        color: #fff;
+        cursor: pointer;
+    }
+`;
+```
+
+### Tailwind CSS
+
+→ 이건 실습으로 진행
+
+## Day 5 (재렌더링 구조와 최적화)
+
+→ 재렌더링을 적절하게 제어하기 위해서는 언제 발생하는지 알아야 함
+
+1. state가 업데이트된 컴포넌트
+2. Props가 변경된 컴포넌트
+3. 재렌더링된 컴포넌트 아래의 모든 컴포넌트
+
+### 메모이제이션 | React.memo
+
+→ 이전의 처리 결과를 저장해둠으로써 처리 속도를 높이는 기술
+
+```jsx
+import { useState, memo } from "react";
+
+const Component = memo(() => {});
+```
+
+→ 컴포넌트를 괄호로 감싸면 해당 컴포넌트는 Props에 변경이 있을 때만 재렌더링됨
