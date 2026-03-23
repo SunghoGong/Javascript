@@ -1429,23 +1429,3 @@ const SButton = styled.button`
 ### Tailwind CSS
 
 → 이건 실습으로 진행
-
-## Day 5 (재렌더링 구조와 최적화)
-
-→ 재렌더링을 적절하게 제어하기 위해서는 언제 발생하는지 알아야 함
-
-1. state가 업데이트된 컴포넌트
-2. Props가 변경된 컴포넌트
-3. 재렌더링된 컴포넌트 아래의 모든 컴포넌트
-
-### 메모이제이션 | React.memo
-
-→ 이전의 처리 결과를 저장해둠으로써 처리 속도를 높이는 기술
-
-```jsx
-import { useState, memo } from "react";
-
-const Component = memo(() => {});
-```
-
-→ 컴포넌트를 괄호로 감싸면 해당 컴포넌트는 Props에 변경이 있을 때만 재렌더링됨
